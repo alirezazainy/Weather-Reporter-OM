@@ -1,6 +1,6 @@
 from DB.models import Daily
 from sqlalchemy.orm import Session
-from fastapi import HTTPException, status
+from fastapi import HTTPException
 from Modules.datacatcher import data_catcher
 from schemas import RequestBaseModel, DailyBase
 from datetime import datetime

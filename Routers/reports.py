@@ -3,7 +3,7 @@ from Controller.daily import catch_daily_data
 from Controller.hourly import catch_hourly_data
 from sqlalchemy.orm import Session
 from DB.database import get_db
-from schemas import RequestBaseModel, HourlyBase
+from schemas import RequestBaseModel
 # Reports router
 
 router = APIRouter(prefix="/reports", tags=['Reports'])

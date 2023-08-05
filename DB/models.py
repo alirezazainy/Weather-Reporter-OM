@@ -1,5 +1,5 @@
 from DB.database import Base
-from sqlalchemy import Column, Integer, String, DateTime, Float, Date, Time, BigInteger
+from sqlalchemy import Column, Integer, Float, Date, Time, BigInteger
 # Database Tables ORM Models
 
 
