@@ -5,7 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from Routers.reports import router
 
 
-app = FastAPI(title="Open-Meteo Reporter")
+app = FastAPI(title="Open-Meteo Reporter",
+               description="an API to Save Open Meteo Information of Locations")
 Base.metadata.create_all(engine)
 app.include_router(router)
 app.add_middleware(
@@ -23,4 +24,7 @@ app.add_middleware(
 
 @app.get("/")
 async def main():
-    return "Hello World"
+    return "Wellcome to Weather Reporter of Open Meteo"
+
+
+# Coded With Galb:)

@@ -41,14 +41,13 @@ def save_data(response: DailyBase, db:Session):
         db.add(daily)
         db.commit()
         db.refresh(daily)
-        print(202)
     except:
         raise HTTPException(406, 'Objects not Acceptable')
 
 
 def catch_daily_data(request: RequestBaseModel, db:Session):
     """
-    This method catch collapse the response dictionary
+    This method collapse the response dictionary
     """
     try:    
         report = data_catcher(lon=request.longitude, lat=request.latitude, fd=request.forecast_days)
