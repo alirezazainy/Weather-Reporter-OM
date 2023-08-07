@@ -18,6 +18,7 @@ async def get_db():
     Database Session Instance Generator
     Returns an Instance of Database Session
     """
+    # Create session of database
     session = sessionlocal()
     try:
         yield session

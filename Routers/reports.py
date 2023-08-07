@@ -13,7 +13,16 @@ router = APIRouter(prefix="/reports", tags=['Reports'])
 async def daily(request: RequestBaseModel, db: Session = Depends(get_db)):
     """
     Get result of saving daily report operation
+    
+    Inputs: 
+    request.latitude -> latitude of the location
+    request.longitude -> longitude of location 
+    request.forecast_days -> if true give results of 16 days else 7 days (default as False)
+
+    Output:
+    A Http exception code as Acceptable -> 202 as Unacceptable -> 406
     """
+    # saving response from catch_daily_data method 
     response = catch_daily_data(request, db)
     if response == 202:
         raise HTTPException(202, 'Objects Accepted')
@@ -22,7 +31,16 @@ async def daily(request: RequestBaseModel, db: Session = Depends(get_db)):
 async def hourly(request: RequestBaseModel, db: Session = Depends(get_db)):
     """
     Get result of saving hourly report operation
+
+    Inputs:
+    request.latitude -> latitude of the location
+    request.longitude -> longitude of location 
+    request.forecast_days -> if true give results of 16 days else 7 days (default as False)
+
+    Output:
+    A Http exception code as Acceptable -> 202 as Unacceptable -> 406
     """
+    # saving response from catch_hourly_data method
     response = catch_hourly_data(request, db)
     if response == 202:
         raise HTTPException(202, 'Objects Accepted')

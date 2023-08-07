@@ -6,6 +6,9 @@ from datetime import date, time
 
 
 class RequestBaseModel(BaseModel):
+    """
+    Requests model of location
+    """
     latitude: float
     longitude: float
     forecast_days: bool = False
