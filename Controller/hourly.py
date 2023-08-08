@@ -12,6 +12,13 @@ DATETIME_FORMAT = '%Y-%m-%dT%H:%M'
 def save_data(response: HourlyBase, db: Session):
     """
     This method saves response model of hourly report in database
+    
+    Inputs: 
+    response -> as a HourlyBase class attrs
+    db -> as a database session
+
+    Output:
+    nothing or HttpException with 406 Unacceptable response
     """
     try:
         hourly = Hourly(
@@ -52,22 +59,33 @@ def save_data(response: HourlyBase, db: Session):
         db.add(hourly)
         db.commit()
         db.refresh(hourly)
-    except:
+    except HTTPException:
         raise HTTPException(406, 'Objects not Acceptable')
 
 def catch_hourly_data(request: RequestBaseModel, db: Session):
     """
     This method collapse the response dictionary
+    
+    Inputs:
+    request -> as Request base model class attrs
+    db -> as a database session
+
+    Output:
+    202 or HttpException with 406 Unacceptable response
     """
     try:
+        # calling dictionary from OM
         report = data_catcher(lon=request.longitude, lat=request.latitude, fd=request.forecast_days)
+        # slicing hourly part
         hourly = report["hourly"]
+        # slicing time part
         hours = hourly["time"]
+        # Generate an instance from HourlyBase
         response = HourlyBase
-        i = 0
+        i = 0 # -> counter
         for hour in hours:
-            now = datetime.strptime(hour, DATETIME_FORMAT).time()
-            today = datetime.strptime(hour, DATETIME_FORMAT).date()
+            now = datetime.strptime(hour, DATETIME_FORMAT).time() # -> transform time from string to time format
+            today = datetime.strptime(hour, DATETIME_FORMAT).date() # -> transform date from string to date format
             response.lat = request.latitude
             response.lon = request.longitude
             response.date = today
@@ -101,8 +119,8 @@ def catch_hourly_data(request: RequestBaseModel, db: Session):
             response.smtn = hourly["soil_moisture_3_9cm"][i]
             response.smnt = hourly["soil_moisture_9_27cm"][i]
             response.smte = hourly["soil_moisture_27_81cm"][i]
-            save_data(response, db)
+            save_data(response, db) # -> saving to database 
             i += 1
         return 202
-    except:
+    except HTTPException:
         raise HTTPException(406, 'Objects not Acceptable')

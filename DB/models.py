@@ -6,6 +6,27 @@ from sqlalchemy import Column, Integer, Float, Date, Time, BigInteger
 class Daily(Base):
     """
     Daily Table ORM Map
+
+    Attributes real names and their units(after lon attr) :
+        "time": "iso8601",
+        "weathercode": "wmo code",
+        "temperature_2m_max": "°C",
+        "temperature_2m_min": "°C",
+        "apparent_temperature_max": "°C",
+        "apparent_temperature_min": "°C",
+        "sunrise": "iso8601",
+        "sunset": "iso8601",
+        "uv_index_max": "",
+        "uv_index_clear_sky_max": "",
+        "precipitation_sum": "mm",
+        "precipitation_hours": "h",
+        "precipitation_probability_max": "%",
+        "windspeed_10m_max": "km/h",
+        "windgusts_10m_max": "km/h",
+        "winddirection_10m_dominant": "°",
+        "shortwave_radiation_sum": "MJ/m²",
+        "et0_fao_evapotranspiration": "mm"
+    all of attrs respectively listed in model
     """
     __tablename__ = "Daily"
     
@@ -35,6 +56,39 @@ class Daily(Base):
 class Hourly(Base):
     """
     Hourly Table ORM Map
+
+    Attributes real names and their units(after lon attr) :
+        "time": "iso8601",
+        "temperature_2m": "°C",
+        "relativehumidity_2m": "%",
+        "dewpoint_2m": "°C",
+        "apparent_temperature": "°C",
+        "precipitation_probability": "%",
+        "precipitation": "mm",
+        "rain": "mm",
+        "weathercode": "wmo code",
+        "pressure_msl": "hPa",
+        "surface_pressure": "hPa",
+        "cloudcover": "%",
+        "cloudcover_low": "%",
+        "cloudcover_mid": "%",
+        "cloudcover_high": "%",
+        "visibility": "m",
+        "evapotranspiration": "mm",
+        "et0_fao_evapotranspiration": "mm",
+        "vapor_pressure_deficit": "kPa",
+        "windspeed_10m": "km/h",
+        "windgusts_10m": "km/h",
+        "soil_temperature_0cm": "°C",
+        "soil_temperature_6cm": "°C",
+        "soil_temperature_18cm": "°C",
+        "soil_temperature_54cm": "°C",
+        "soil_moisture_0_1cm": "m³/m³",
+        "soil_moisture_1_3cm": "m³/m³",
+        "soil_moisture_3_9cm": "m³/m³",
+        "soil_moisture_9_27cm": "m³/m³",
+        "soil_moisture_27_81cm": "m³/m³"
+    all of attrs respectively listed in model
     """
     __tablename__ = "Hourly"
 

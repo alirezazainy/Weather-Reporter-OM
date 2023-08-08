@@ -17,6 +17,7 @@ class RequestBaseModel(BaseModel):
 class DailyBase(BaseModel):
     """
     Daily Report Model
+    All values names same as model Attrs names 
     """
     lat: float
     lon: float
@@ -41,6 +42,10 @@ class DailyBase(BaseModel):
 
 
 class HourlyBase(BaseModel):
+    """
+    Hourly Report Model
+    All values names same as model Attrs names 
+    """
     lat: float
     lon: float
     date: date
