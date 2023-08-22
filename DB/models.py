@@ -31,6 +31,7 @@ class Daily(Base):
     __tablename__ = "Daily"
     
     ID = Column(Integer, index=True, primary_key=True)
+    user_id = Column(Integer)
     lat = Column(Float)
     lon = Column(Float)
     date = Column(Date)
@@ -93,6 +94,7 @@ class Hourly(Base):
     __tablename__ = "Hourly"
 
     ID = Column(Integer, index=True, primary_key=True)
+    user_id = Column(Integer)
     lat = Column(Float)
     lon = Column(Float)
     date = Column(Date)

@@ -2,7 +2,7 @@ from DB.models import Daily
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from Modules.datacatcher import data_catcher
-from schemas import RequestBaseModel, DailyBase
+from schemas import RequestBaseModel, DailyBase, UserBase
 from datetime import datetime
 # Daily model Unit of work
 
@@ -24,6 +24,7 @@ def save_data(response: DailyBase, db: Session):
     """
     try:
         daily = Daily(
+            user_id=response.user_id,
             lat=response.lat,
             lon=response.lon,
             date=response.date,
@@ -53,7 +54,7 @@ def save_data(response: DailyBase, db: Session):
 
 
 
-def catch_daily_data(request: RequestBaseModel, db: Session):
+def catch_daily_data(request: RequestBaseModel, db: Session, user: UserBase):
     """
     This method collapse the response dictionary
     
@@ -75,6 +76,7 @@ def catch_daily_data(request: RequestBaseModel, db: Session):
         response = DailyBase
         i = 0 # -> counter
         for day in days:
+            response.user_id = user.id
             today = datetime.strptime(day, DATE_FORMAT).date() # -> transform date from string to date format
             sunrise = daily["sunrise"][i] # -> giving value for transform format
             sunset = daily["sunset"][i] # -> giving value for transform format

@@ -2,7 +2,7 @@ from DB.models import Hourly
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from Modules.datacatcher import data_catcher
-from schemas import RequestBaseModel, HourlyBase
+from schemas import RequestBaseModel, HourlyBase, UserBase
 from datetime import datetime
 # Hourly model Unit of work
 
@@ -22,6 +22,7 @@ def save_data(response: HourlyBase, db: Session):
     """
     try:
         hourly = Hourly(
+            user_id=response.user_id,
             lat=response.lat,
             lon=response.lon,
             date=response.date,
@@ -62,7 +63,7 @@ def save_data(response: HourlyBase, db: Session):
     except HTTPException:
         raise HTTPException(406, 'Objects not Acceptable')
 
-def catch_hourly_data(request: RequestBaseModel, db: Session):
+def catch_hourly_data(request: RequestBaseModel, db: Session, user: UserBase):
     """
     This method collapse the response dictionary
     
@@ -84,6 +85,7 @@ def catch_hourly_data(request: RequestBaseModel, db: Session):
         response = HourlyBase
         i = 0 # -> counter
         for hour in hours:
+            response.user_id = user.id
             now = datetime.strptime(hour, DATETIME_FORMAT).time() # -> transform time from string to time format
             today = datetime.strptime(hour, DATETIME_FORMAT).date() # -> transform date from string to date format
             response.lat = request.latitude

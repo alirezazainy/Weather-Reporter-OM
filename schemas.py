@@ -19,6 +19,7 @@ class DailyBase(BaseModel):
     Daily Report Model
     All values names same as model Attrs names 
     """
+    user_id: int
     lat: float
     lon: float
     date: date
@@ -46,6 +47,7 @@ class HourlyBase(BaseModel):
     Hourly Report Model
     All values names same as model Attrs names 
     """
+    user_id: int
     lat: float
     lon: float
     date: date
@@ -79,3 +81,8 @@ class HourlyBase(BaseModel):
     smtn: Optional[float] = None
     smnt: Optional[float] = None
     smte: Optional[float] = None
+
+class UserBase(BaseModel):
+    token: str
+    id: int 
+    
