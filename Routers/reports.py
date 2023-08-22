@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Security
 from Controller.daily import catch_daily_data
 from Controller.hourly import catch_hourly_data
 from sqlalchemy.orm import Session
+from Controller.responses import daily_by_location, hourly_by_location
 from DB.database import get_db
 from authorization import get_current_user
 from schemas import RequestBaseModel, UserBase
@@ -26,7 +27,11 @@ async def daily(request: RequestBaseModel, user: UserBase = Security(get_current
     # saving response from catch_daily_data method 
     response = catch_daily_data(request, db, user)
     if response == 202:
-        raise HTTPException(202, 'Objects Accepted')
+        data = daily_by_location(request, user, db)
+        _dict = {
+            "data": data
+        }
+        return _dict
     
 @router.post("/hourly")
 async def hourly(request: RequestBaseModel, user: UserBase = Security(get_current_user), db: Session = Depends(get_db)):
@@ -44,4 +49,8 @@ async def hourly(request: RequestBaseModel, user: UserBase = Security(get_curren
     # saving response from catch_hourly_data method
     response = catch_hourly_data(request, db, user)
     if response == 202:
-        raise HTTPException(202, 'Objects Accepted')
+        data = hourly_by_location(request, user, db)
+        _dict = {
+            "data": data
+        }
+        return _dict

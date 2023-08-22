@@ -14,7 +14,7 @@ def get_all_data(user: UserBase, db: Session):
     """
     try:
         daily_data = db.query(Daily).filter(Daily.user_id == user.id).all()
-        hourly_data = db.query(Hourly).filter(Hourly.user_id == user.id)
+        hourly_data = db.query(Hourly).filter(Hourly.user_id == user.id).all()
         return [daily_data, hourly_data]
     except HTTPException:
         HTTPException(404, "not found")
@@ -22,11 +22,20 @@ def get_all_data(user: UserBase, db: Session):
 def daily_by_location(request: RequestBaseModel, user: UserBase, db: Session):
     """
     """
-    pass
+    try: 
+        data = db.query(Daily).filter(Daily.user_id == user.id and Daily.lat == request.latitude and Daily.lon == request.longitude).all()
+    except HTTPException:
+        HTTPException(404, "not found")
+    return data
 
 def hourly_by_location(request: RequestBaseModel, user: UserBase, db: Session):
-    pass
-
+    """
+    """
+    try:
+        data = db.query(Hourly).filter(Hourly.user_id == user.id and Hourly.lat == request.latitude and Hourly.lon == request.longitude).all()
+    except HTTPException:
+        HTTPException(404, "not found")
+    return data
 def all_by_location(request: RequestBaseModel, user: UserBase, db: Session):
     pass
 
