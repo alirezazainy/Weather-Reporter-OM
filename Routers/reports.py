@@ -44,7 +44,7 @@ async def hourly(request: RequestBaseModel, user: UserBase = Security(get_curren
     request.forecast_days -> if true give results of 16 days else 7 days (default as False)
 
     Output:
-    A Http exception code as Acceptable -> 202 as Unacceptable -> 406
+    A json response from data you want
     """
     # saving response from catch_hourly_data method
     response = catch_hourly_data(request, db, user)
