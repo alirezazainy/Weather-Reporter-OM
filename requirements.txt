@@ -4,4 +4,4 @@ requests==2.31.0
 typing==3.7.4.3
 python-jose==3.3.0
 uvicorn==0.23.2
-psycopg2==<insert last-version>
+psycopg2
