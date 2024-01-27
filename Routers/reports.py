@@ -26,12 +26,7 @@ async def daily(request: RequestBaseModel, user: UserBase = Security(get_current
     """
     # saving response from catch_daily_data method 
     response = catch_daily_data(request, db, user)
-    if response == 202:
-        data = daily_by_location(request, user, db)
-        _dict = {
-            "data": data
-        }
-        return _dict
+    return response
     
 @router.post("/hourly")
 async def hourly(request: RequestBaseModel, user: UserBase = Security(get_current_user), db: Session = Depends(get_db)):
