@@ -43,9 +43,4 @@ async def hourly(request: RequestBaseModel, user: UserBase = Security(get_curren
     """
     # saving response from catch_hourly_data method
     response = catch_hourly_data(request, db, user)
-    if response == 202:
-        data = hourly_by_location(request, user, db)
-        _dict = {
-            "data": data
-        }
-        return _dict
+    return response
