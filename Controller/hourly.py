@@ -20,6 +20,7 @@ def save_data(response: HourlyBase, db: Session):
     Output:
     nothing or HttpException with 406 Unacceptable response
     """
+    print(datetime.now)
     try:
         hourly = Hourly(
             user_id=response.user_id,
@@ -60,6 +61,7 @@ def save_data(response: HourlyBase, db: Session):
         db.add(hourly)
         db.commit()
         db.refresh(hourly)
+        print(datetime.now)
     except HTTPException:
         raise HTTPException(406, 'Objects not Acceptable')
 
