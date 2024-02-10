@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 
 # Create Database SQLAlchemy Engine
 engine = create_engine(
-    "postgresql://postgres:51MOytgRlPrqMeLnbfcUPX9AtLKfAQ37@open-meteo-db.alirezazainy16.svc:5432")
+    "postgresql://postgres:sama@localhost/sama")
 # Create Base Class of Database
 Base = declarative_base()
 # Create Database Session
